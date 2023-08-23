@@ -1,0 +1,209 @@
+                            help.txt
+
+Gebruikershandleiding voor het gebruik van de Supermarket Tracker!
+
+
+Ga als eerste naar het pad waar het programma geinstalleerd is.
+Als voorbeeld gebruiken we in deze gebruikershandleiding het volgende pad:
+D:\Winc\module6\superpy>
+
+Voor het aanroepen van het programma dient het volgende commando gebruikt te worden:
+py main.py
+Dit commando dient gevolgd te worden door een actie.
+Om een overzicht van de acties te vinden kan het volgende commando worden gegeven:
+py main.py --h
+Je krijgt dan onderstaand overzicht:
+
+Welcome to the Supermarket Tracker!
+
+positional arguments:
+  {buy,sell,advance-time,report}
+    buy                 select if you want to buy products
+    sell                select if you want to sell products
+    advance-time        select if you want to travel to the future
+    report              select for a report of the inventory, revenue, profit, nutrients or expired products in stock
+
+options:
+  -h, --help            show this help message and exit
+
+
+                            -Acties-
+                             *buy*
+
+Commando: py main.py buy --h
+positional arguments:
+  product          name of the product you want to buy
+  amount           how many you want to buy of this product
+  price            the price of the product where it was bought for
+  expiration_date  the expiration date of the product
+
+De bovenstaande 4 waarden dienen te worden ingevoerd op volgorde achter het commando.
+Voorbeeld: py main.py buy apple 3 0.8 2024-02-18
+Hierdoor worden er 3(amount) appels(product) toegevoegd voor €0.80(price) per stuk 
+met een vervaldatum(expiration_date) van 2024-02-18(YYYY-MM-DD) toegevoegd aan de voorraad.
+
+
+                             *sell*
+
+Commando: py main.py sell --h
+positional arguments:
+  product     name of the product you want to sell
+  amount      how many you want to sell of this product
+  price       the selling price of the product
+
+De bovenstaande 3 waarden dienen te worden ingevoerd op volgorde achter het commando.
+Commando: py main.py sell apple 2 1.4
+Hierdoor worden er 2(amount) appels(product) verkocht voor €1.40(price) per stuk.
+
+Mochten er niet genoeg producten op voorraad zijn, dan krijg je een melding.
+Commando: py main.py sell apple 5 1.4
+Output: Not enough apple in stock
+
+
+                          *advance-time*
+
+Commando: py main.py advance-time --h
+positional arguments:
+  amount-days  select the amount of days you want to travel
+
+Om bijvoorbeeld 3 dagen te kunnen reizen in de toekomst kan het volgende commando worden gegeven.
+De huidige datum is in dit voorbeeld is 2023-08-23 en er zullen dus 3 dagen bij op worden geteld.
+Commando: py main.py advance-time 3
+Output: The date of today is: 2023-08-26
+
+Wanneer er een verkeerde invoer of negatief getal wordt ingevoerd zal er een melding worden gegeven.
+Commando: py main.py advance-time -3
+Output: -3 is not a positive integer, you can only trave in the future
+
+Commando: py main.py advance-time drie
+Output: invalid advance_time value: 'drie'
+
+
+                            *report*
+
+Commando: py main.py report --h
+positional arguments:
+  {inventory,revenue,profit,nutrients,expired}
+    inventory           select for a report of the inventory without expired products
+    revenue             choose the period you want to view the revenue
+    profit              choose the period you want to view the profit
+    nutrients           shows a report of the nutrients of the products which haven been bought
+    expired             shows a report of products in stock and if they are expired or not
+
+Onder de actie report bevinden zich meerdere verschillende rapporten die betrekking hebben op de gekochte,
+of verkochte producten.
+De actie report dient gevolgd te worden door 1 van de acties uit bovenstaande lijst.
+
+
+                          *inventory*
+
+Commando: py main.py report inventory --h
+positional arguments:
+  {today,yesterday}  choose today or yesterday for the inventory of that day
+
+Door te kiezen voor vandaag(today) of gisteren(yesterday) krijg je een overzicht van de voorraad van die dag.
+De voorraad die wordt weergegeven bestaat alleen uit producten die nog niet zijn verlopen!
+Commando: py main.py report inventory yesterday
+Output: 
+Inventory of: 2023-08-22
++-----------+-----------------+---------------+------------+
+| product   |   amount_bought |   amount_sold |   in_stock |
++===========+=================+===============+============+
+| orange    |               5 |             1 |          4 |
++-----------+-----------------+---------------+------------+
+| apple     |               5 |             2 |          3 |
++-----------+-----------------+---------------+------------+
+| pineapple |               1 |             0 |          1 |
++-----------+-----------------+---------------+------------+
+
+In bovenstaand overzicht is dus een overzicht van de voorraad van gisteren ten opzichte van vandaag(2023-08-23)
+
+
+                            *revenue*
+
+Commando: py main.py report revenue --h
+positional arguments:
+  {today,yesterday,period}
+    today               total revenue of today
+    yesterday           total revenue of yesterday
+    period              enter 'period' followed by: YYYY-MM
+
+In dit overzicht zijn 3 bovenstaande opties mogelijk voor een overzicht van de omzet voor een bepaalde periode.
+
+Commando: py main.py report revenue today
+Output: Today's revenue so far: 1.8
+
+Commando: py main.py report revenue period --h
+positional arguments:
+  year_month  choose the period you want to view the revenue(YYYY-MM)
+
+Door te kiezen voor de actie period, kan je een bepaalde periode van een maand opgeven(YYYY-MM)
+Commando: py main.py report revenue period 2023-08
+Output: Revenue from August 2023: 1.8
+
+
+                            *profit*
+
+Commando: py main.py report profit --h
+positional arguments:
+  {today,yesterday,period}
+    today               total profit of today
+    yesterday           total profit of yesterday
+    period              enter 'period' followed by: YYYY-MM
+
+In dit overzicht zijn 3 bovenstaande opties mogelijk voor een overzicht van de winst voor een bepaalde periode.
+
+Commando: py main.py report profit today
+Output: Today's profit so far: -0.6
+
+Commando: py main.py report profit period --h
+positional arguments:
+  year_month  choose the period you want to view the profit(YYYY-MM)
+
+Door te kiezen voor de actie period, kan je een bepaalde periode van een maand opgeven(YYYY-MM)
+Commando: py main.py report profit period 2023-08
+Output: Profit from August 2023: -0.6
+
+
+                           *nutrients*
+
+Commando: py main.py report nutrients
+Output: 
++-----------+--------------+----------+-------+----------+---------+
+|           |   ENERC_KCAL |   PROCNT |   FAT |   CHOCDF |   FIBTG |
++===========+==============+==========+=======+==========+=========+
+| orange    |           47 |     0.94 |  0.12 |     11.8 |     2.4 |
++-----------+--------------+----------+-------+----------+---------+
+| apple     |           52 |     0.26 |  0.17 |     13.8 |     2.4 |
++-----------+--------------+----------+-------+----------+---------+
+| pineapple |           50 |     0.54 |  0.12 |     13.1 |     1.4 |
++-----------+--------------+----------+-------+----------+---------+
+
+In dit overzicht vind je de voedingsstoffen van de producten die gekocht zijn.
+ENERC_KCAL: Energie in kcal
+PROCNT: Proteinen in gram
+FAT: Lipiden(vet) in gram
+CHOCDF: koolhydraten in gram
+FIBTG: vezels in gram
+
+Ook zal er een visuele staafdiagram worden weergegeven die per product de voedingsstoffen weergeeft.
+
+
+                           *expired*
+
+Commando: py main.py report expired
+Output: 
++------+----------------+----------+------------+---------+-------------------+------------+
+|   id | product_name   |   amount | buy_date   |   price | expiration_date   | expired?   |
++======+================+==========+============+=========+===================+============+
+|    1 | orange         |        4 | 2023-08-23 |     0.4 | 2023-09-10        | no         |
++------+----------------+----------+------------+---------+-------------------+------------+
+|    2 | apple          |        3 | 2023-08-23 |     0.8 | 2023-09-05        | no         |
++------+----------------+----------+------------+---------+-------------------+------------+
+|    3 | pineapple      |        1 | 2023-08-23 |     1.2 | 2023-10-03        | no         |
++------+----------------+----------+------------+---------+-------------------+------------+
+|    4 | pineapple      |        3 | 2023-07-03 |     0.9 | 2023-08-16        | yes        |
++------+----------------+----------+------------+---------+-------------------+------------+
+
+In dit overzicht zie je nog de producten die op voorraad zijn en of de houdbaarheidsdatum is verstreken.
+Het kan zijn dat er dezelfde producten op staan, deze zullen dan in een andere vracht aangekocht zijn.
